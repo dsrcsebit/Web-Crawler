@@ -20,16 +20,20 @@ public class crawler {
 	public static void main(String[] args) {
 		try {
 			downloadMain();
+			System.out.println(MailDownloadService.i);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Problem with IO");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Problem with URL");
 		}
 		// new MailDownloadService((String)
 		// mailLinkOf2014.toArray()[1]).saveMailFromURL();
 
 	}
 
-	private static void downloadMain() throws IOException {
+	private static void downloadMain() throws IOException, InterruptedException {
 		long startTime = System.currentTimeMillis();
 		HTMLRequester htmlReq = new HTMLRequestService();
 		Set<String> mailLinkOf2014 = htmlReq.htmlURLExtractor(
@@ -37,18 +41,15 @@ public class crawler {
 		Iterator<String> it = mailLinkOf2014.iterator();
 
 		ExecutorService executor = Executors.newFixedThreadPool(12);
-
+		String url = null;
 		while (it.hasNext()) {
-			executor.execute((new MailDownloadService(it.next())));
+		url = it.next();
+		executor.execute((new MailDownloadService(url)));
 		}
 		executor.shutdown();
 
-		try {
-			executor.awaitTermination(4, TimeUnit.MINUTES);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		executor.awaitTermination(4, TimeUnit.MINUTES);
+
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
 		System.out.println(totalTime);

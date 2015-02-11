@@ -28,23 +28,20 @@ public class Utility {
 		Writer w = null;
 		try {
 			// Whatever the file path is.
-			
+
 			File file = new File("/home/deepaks/Documents/Mail");
 
 			file.deleteOnExit();
 			file.mkdir();
-			file = new File("/home/deepaks/Documents/Mail/" 
-					+ fileName);
+			file = new File("/home/deepaks/Documents/Mail/" + fileName);
 			FileOutputStream is = new FileOutputStream(file);
 			OutputStreamWriter osw = new OutputStreamWriter(is);
 			w = new BufferedWriter(osw);
 			w.write(textToWrite);
 
-		} 
-		catch (SocketTimeoutException e) {
+		} catch (SocketTimeoutException e) {
 			System.err.println("Socket Timeout Problem writing to the file");
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.err.println("Problem writing to the file");
 		} finally {
 			try {

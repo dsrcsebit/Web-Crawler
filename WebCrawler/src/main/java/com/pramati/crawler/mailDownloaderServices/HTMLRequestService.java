@@ -20,7 +20,7 @@ public class HTMLRequestService implements HTMLRequester {
 	public Set<String> htmlURLExtractor(String webURL, String tableID,
 			String text) throws IOException {
 		Set<String> linkSetByDate = Collections.emptySet();
-		if (webURL.contains("thread")) {
+		if (webURL.contains("thread") && !webURL.contains("thread?")) {
 			webURL = webURL.replace("thread", "");
 		}
 
@@ -28,12 +28,16 @@ public class HTMLRequestService implements HTMLRequester {
 		int statusCode = connectURL(webURL);
 		if (statusCode == 200) {
 			doc = Jsoup.connect(webURL).get();
-
+			if(webURL.contains("thread?")){
+				webURL=webURL.substring(0, webURL.length()-8);
+			}
 			for (Element table : doc.select(tableID)) {
 				if (text.isEmpty() || table.select("th").text().equals(text)) {
 					for (Element row : table.select("tr")) {
 						Elements tds = row.select("a[href]");
-						linkSetByDate.add(webURL + tds.attr("href"));
+						String attribute=tds.attr("href");
+						if(!attribute.isEmpty())
+						linkSetByDate.add(webURL + attribute);
 
 					}
 				}
