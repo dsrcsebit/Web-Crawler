@@ -7,10 +7,9 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.pramati.crawler.mailDownloader.HTMLRequester;
-import com.pramati.crawler.mailDownloader.MailDownloader;
 import com.pramati.crawler.uti.Utility;
 
-public class MailDownloadService implements MailDownloader {
+public class MailDownloadService implements Runnable {
 
 	String URL;
 	public static AtomicInteger i = new AtomicInteger();
@@ -20,7 +19,7 @@ public class MailDownloadService implements MailDownloader {
 		URL = uRL;
 	}
 
-	public  boolean  saveMailFromURL() throws IOException {
+	private  boolean  saveMailFromURL() throws IOException {
 		HTMLRequester hreq = new HTMLRequestService();
 		Set<String> mailURL = hreq.htmlURLExtractor(URL + "?0",
 				"table#msglist", "");
