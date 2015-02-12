@@ -4,21 +4,31 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.pramati.crawler.mailDownloader.HTMLRequester;
 import com.pramati.crawler.uti.Utility;
 
+/**
+ * 
+ *
+ * Take the base URL, provides the task to threadpool
+ * 
+ */
 public class MailDownloadService implements Runnable {
 
 	String URL;
-	public static AtomicInteger i = new AtomicInteger();
 
 	public MailDownloadService(String uRL) {
 		super();
 		URL = uRL;
 	}
 
+	/**
+	 * 
+	 * Wrapper method to extract the data and write to local file System
+	 * 
+	 * 
+	 */
 	private boolean saveMailFromURL() throws IOException {
 		HTMLRequester hreq = new HTMLRequestService();
 		Set<String> mailURL = hreq.htmlURLExtractor(URL + "?0",
@@ -31,16 +41,13 @@ public class MailDownloadService implements Runnable {
 			temp.clear();
 			temp = hreq.htmlURLExtractor(URL + "?" + counter++,
 					"table#msglist", "");
-			// temp.remove(o)
 
 			if (temp != null && temp.size() > 1) {
 				mailURL.addAll(temp);
 			}
 		}
-		System.out.println(mailURL.size());
 		Iterator<String> it = mailURL.iterator();
 		while (it.hasNext()) {
-			// System.out.println(mailURL.size() + "mailURLs are"+mailURL );
 
 			String testURL = it.next().toString();
 			if (testURL.indexOf("%") != -1) {
@@ -48,30 +55,27 @@ public class MailDownloadService implements Runnable {
 						+ "/raw/" + testURL.substring(testURL.indexOf("%"));
 				String fileName = testURL.substring(testURL.indexOf("%"))
 						+ testURL.hashCode();
-				try {
-					Utility.writeToFile(hreq.linkParser(testURL), fileName
-							+ System.currentTimeMillis());
-				} catch (Exception e) {
-					Utility.writeToFile(hreq.linkParser(testURL), fileName
-							+ System.currentTimeMillis());
-				}
-			} else {
-				// String fileName = String.valueOf(System.currentTimeMillis())
-				// + testURL;
-				System.out.println(testURL);
-				Utility.writeToFile(hreq.linkParser(testURL), testURL);
+
+				Utility.writeToFile(hreq.linkParser(testURL), Utility.FILE_LOC
+						+ fileName + System.currentTimeMillis());
 			}
-			// System.out.println(hreq.linkParser(testURL));
 		}
-		return false;
+		return true;
 	}
+
+	/**
+	 * 
+	 *
+	 * task to execute by threads
+	 * 
+	 */
 
 	public void run() {
 		try {
 			saveMailFromURL();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Error in saving files"
+					+ Thread.currentThread().getName());
 		}
 	}
 
