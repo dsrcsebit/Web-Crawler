@@ -27,17 +27,23 @@ public class HTMLRequestService implements HTMLRequester {
 		linkSetByDate = new HashSet<String>();
 		int statusCode = connectURL(webURL);
 		if (statusCode == 200) {
-			doc = Jsoup.connect(webURL).get();
-			if(webURL.contains("thread?")){
-				webURL=webURL.substring(0, webURL.length()-8);
+			// try {
+			doc = Jsoup.connect(webURL).timeout(10 * 1000).get();
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// doc = Jsoup.connect(webURL).get();
+			// }
+			if (webURL.contains("thread?")) {
+				webURL = webURL.substring(0, webURL.length() - 8);
 			}
 			for (Element table : doc.select(tableID)) {
 				if (text.isEmpty() || table.select("th").text().equals(text)) {
 					for (Element row : table.select("tr")) {
 						Elements tds = row.select("a[href]");
-						String attribute=tds.attr("href");
-						if(!attribute.isEmpty())
-						linkSetByDate.add(webURL + attribute);
+						String attribute = tds.attr("href");
+						if (!attribute.isEmpty()
+								&& !attribute.equals("browser"))
+							linkSetByDate.add(webURL + attribute);
 
 					}
 				}
@@ -53,7 +59,7 @@ public class HTMLRequestService implements HTMLRequester {
 				.connect(webURL)
 				.userAgent(
 						"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21")
-				.timeout(10000).execute();
+				.timeout(160000).execute();
 
 		int statusCode = response.statusCode();
 		return statusCode;
@@ -65,7 +71,13 @@ public class HTMLRequestService implements HTMLRequester {
 
 		int statusCode = connectURL(URL);
 		if (statusCode == 200) {
-			doc = Jsoup.connect(URL).get();
+			// try {
+			doc = Jsoup.connect(URL).timeout(15 * 1000).get();
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// doc = Jsoup.connect(URL).get();
+			// }
+			// doc = Jsoup.connect(URL).get();
 			resultString = doc.text();
 
 		}
