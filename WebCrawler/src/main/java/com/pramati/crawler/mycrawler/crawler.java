@@ -40,7 +40,7 @@ public class crawler {
 				Utility.URL_TO_CRWL, "table.year", "Year 2014");
 		Iterator<String> it = mailLinkOf2014.iterator();
 
-		ExecutorService executor = Executors.newFixedThreadPool(12);
+		ExecutorService executor = Executors.newFixedThreadPool(6);
 		String url = null;
 		while (it.hasNext()) {
 		url = it.next();
