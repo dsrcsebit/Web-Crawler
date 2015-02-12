@@ -27,12 +27,7 @@ public class HTMLRequestService implements HTMLRequester {
 		linkSetByDate = new HashSet<String>();
 		int statusCode = connectURL(webURL);
 		if (statusCode == 200) {
-			// try {
 			doc = Jsoup.connect(webURL).timeout(10 * 1000).get();
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// doc = Jsoup.connect(webURL).get();
-			// }
 			if (webURL.contains("thread?")) {
 				webURL = webURL.substring(0, webURL.length() - 8);
 			}
@@ -71,19 +66,12 @@ public class HTMLRequestService implements HTMLRequester {
 
 		int statusCode = connectURL(URL);
 		if (statusCode == 200) {
-			// try {
 			doc = Jsoup.connect(URL).timeout(15 * 1000).get();
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// doc = Jsoup.connect(URL).get();
-			// }
-			// doc = Jsoup.connect(URL).get();
 			resultString = doc.text();
 
 		}
 
 		return resultString;
-		// DO DFS to get all mail links
 	}
 
 	public boolean isBrokenLink(URL baseURL) {

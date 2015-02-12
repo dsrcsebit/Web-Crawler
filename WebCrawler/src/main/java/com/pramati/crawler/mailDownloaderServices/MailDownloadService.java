@@ -19,7 +19,7 @@ public class MailDownloadService implements Runnable {
 		URL = uRL;
 	}
 
-	private  boolean  saveMailFromURL() throws IOException {
+	private boolean saveMailFromURL() throws IOException {
 		HTMLRequester hreq = new HTMLRequestService();
 		Set<String> mailURL = hreq.htmlURLExtractor(URL + "?0",
 				"table#msglist", "");
@@ -31,7 +31,7 @@ public class MailDownloadService implements Runnable {
 			temp.clear();
 			temp = hreq.htmlURLExtractor(URL + "?" + counter++,
 					"table#msglist", "");
-			//temp.remove(o)
+			// temp.remove(o)
 
 			if (temp != null && temp.size() > 1) {
 				mailURL.addAll(temp);
@@ -48,16 +48,16 @@ public class MailDownloadService implements Runnable {
 						+ "/raw/" + testURL.substring(testURL.indexOf("%"));
 				String fileName = testURL.substring(testURL.indexOf("%"))
 						+ testURL.hashCode();
-				try
-				{
-					Utility.writeToFile(hreq.linkParser(testURL), fileName+System.currentTimeMillis());
-				}
-				catch(Exception e){
-					Utility.writeToFile(hreq.linkParser(testURL), fileName+System.currentTimeMillis());
+				try {
+					Utility.writeToFile(hreq.linkParser(testURL), fileName
+							+ System.currentTimeMillis());
+				} catch (Exception e) {
+					Utility.writeToFile(hreq.linkParser(testURL), fileName
+							+ System.currentTimeMillis());
 				}
 			} else {
-				//String fileName = String.valueOf(System.currentTimeMillis())
-						//+ testURL;
+				// String fileName = String.valueOf(System.currentTimeMillis())
+				// + testURL;
 				System.out.println(testURL);
 				Utility.writeToFile(hreq.linkParser(testURL), testURL);
 			}
