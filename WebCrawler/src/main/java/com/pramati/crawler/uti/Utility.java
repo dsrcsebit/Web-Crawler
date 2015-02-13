@@ -4,8 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Enumeration;
+import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 public class Utility {
@@ -17,7 +20,7 @@ public class Utility {
 	 */
 	public enum TABLETITLE {
 
-		YEAR_ONE("Year 2012"), YEAR_TWO("Year 2013"), YEAR_THREE("Year 2014"), YEAR_FOUR(
+		YEAR_2012("Year 2012"), YEAR_2013("Year 2013"), YEAR_2014("Year 2014"), YEAR_2015(
 				"Year 2015");
 		private final String value;
 
@@ -111,6 +114,38 @@ public class Utility {
 		}
 		folder.delete();
 		cdl.countDown();
+	}
+
+	public void readPropertiesFile() throws IOException {
+
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			String filename = "config.properties";
+			input = getClass().getClassLoader().getResourceAsStream(filename);
+			if (input == null) {
+				System.out.println("Sorry, unable to find " + filename);
+				return;
+			}
+
+			prop.load(input);
+
+			Enumeration<?> e = prop.propertyNames();
+			while (e.hasMoreElements()) {
+				String key = (String) e.nextElement();
+				String value = prop.getProperty(key);
+				System.out.println("Key : " + key + ", Value : " + value);
+			}
+
+		} finally {
+			if (input != null) {
+
+				input.close();
+			}
+		}
+
 	}
 
 }

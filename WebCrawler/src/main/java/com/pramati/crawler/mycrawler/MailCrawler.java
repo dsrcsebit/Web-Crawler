@@ -6,10 +6,10 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.pramati.crawler.mailDownloader.HTMLRequester;
+import com.pramati.crawler.mailDownloader.HTMLExtractor;
 import com.pramati.crawler.mailDownloader.MailDownloadController;
-import com.pramati.crawler.mailDownloaderServices.HTMLRequestService;
-import com.pramati.crawler.mailDownloaderServices.MailDownloadControllerImp;
+import com.pramati.crawler.mailDownloaderImp.HTMLExtractorImp;
+import com.pramati.crawler.mailDownloaderImp.MailDownloadControllerImp;
 import com.pramati.crawler.uti.Utility;
 import com.pramati.crawler.uti.Utility.TABLETITLE;
 
@@ -19,7 +19,7 @@ import com.pramati.crawler.uti.Utility.TABLETITLE;
  * Main class
  * 
  */
-public class Crawler {
+public class MailCrawler {
 
 	/**
 	 * @param args
@@ -29,7 +29,7 @@ public class Crawler {
 	 * 
 	 */
 
-	final static Logger logger = Logger.getLogger(Crawler.class);
+	final static Logger logger = Logger.getLogger(MailCrawler.class);
 
 	public static void main(String[] args) {
 		try {
@@ -38,9 +38,10 @@ public class Crawler {
 			// years
 			TABLETITLE tbt = getInputForYear();
 
-			HTMLRequester htmlReq = new HTMLRequestService();
+			HTMLExtractor htmlReq = new HTMLExtractorImp();
 			Set<String> mailLinkOfYear = htmlReq.htmlURLExtractor(
 					Utility.URL_TO_CRWL, Utility.TABLE_ID, tbt.toString());
+
 			MailDownloadController mController = new MailDownloadControllerImp();
 			mController.downloadMails(mailLinkOfYear);
 		} catch (InterruptedException e) {

@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloaderServices;
+package com.pramati.crawler.mailDownloaderImp;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.pramati.crawler.mailDownloader.HTMLRequester;
+import com.pramati.crawler.mailDownloader.HTMLExtractor;
 import com.pramati.crawler.uti.Utility;
 
 /**
@@ -16,12 +16,12 @@ import com.pramati.crawler.uti.Utility;
  * Take the base URL, provides the task to threadpool
  * 
  */
-public class MailDownloadService implements Runnable {
+public class MailDownloader implements Runnable {
 
 	final String URL;
-	final static Logger logger = Logger.getLogger(MailDownloadService.class);
+	final static Logger logger = Logger.getLogger(MailDownloader.class);
 
-	public MailDownloadService(String uRL) {
+	public MailDownloader(String uRL) {
 		super();
 		URL = uRL;
 	}
@@ -32,8 +32,8 @@ public class MailDownloadService implements Runnable {
 	 * 
 	 * 
 	 */
-	private boolean saveMailFromURL() throws IOException {
-		HTMLRequester hreq = new HTMLRequestService();
+	public boolean saveMailFromURL() throws IOException {
+		HTMLExtractor hreq = new HTMLExtractorImp();
 		Set<String> mailURL = hreq.htmlURLExtractor(URL + "?0",
 				"table#msglist", "");
 		Set<String> temp = new HashSet<String>();

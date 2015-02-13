@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloaderServices;
+package com.pramati.crawler.mailDownloaderImp;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,15 +12,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.pramati.crawler.mailDownloader.HTMLRequester;
+import com.pramati.crawler.mailDownloader.HTMLExtractor;
 
 /**
  * Service implementation for extacting email URLs from HTML file and parsing
  * the URL data.
  */
 
-public class HTMLRequestService implements HTMLRequester {
-	final static Logger logger = Logger.getLogger(HTMLRequestService.class);
+public class HTMLExtractorImp implements HTMLExtractor {
+	final static Logger logger = Logger.getLogger(HTMLExtractorImp.class);
 
 	/**
 	 * Returns a set of URLs on the HTML page given as param
@@ -123,7 +123,7 @@ public class HTMLRequestService implements HTMLRequester {
 	 */
 	public String linkParser(String webURL) throws IOException {
 
-		String resultString = "";
+		String resultString = null;
 		Document doc;
 
 		int statusCode = connectURL(webURL);

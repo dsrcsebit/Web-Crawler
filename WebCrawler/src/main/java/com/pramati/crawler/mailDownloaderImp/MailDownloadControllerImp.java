@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloaderServices;
+package com.pramati.crawler.mailDownloaderImp;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -72,7 +72,7 @@ public class MailDownloadControllerImp implements MailDownloadController {
 			if (logger.isInfoEnabled()) {
 				logger.info("Saving files for URL" +url);
 			}
-			executor.execute((new MailDownloadService(url)));
+			executor.execute((new MailDownloader(url)));
 		}
 		executor.shutdown();
 
