@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.pramati.crawler.mailDownloader.HTMLRequester;
 import com.pramati.crawler.mailDownloader.MailDownloadController;
 import com.pramati.crawler.mailDownloaderServices.HTMLRequestService;
@@ -17,7 +19,7 @@ import com.pramati.crawler.uti.Utility.TABLETITLE;
  * Main class
  * 
  */
-public class crawler {
+public class Crawler {
 
 	/**
 	 * @param args
@@ -27,8 +29,11 @@ public class crawler {
 	 * 
 	 */
 
+	final static Logger logger = Logger.getLogger(Crawler.class);
+
 	public static void main(String[] args) {
 		try {
+
 			// take input from user to download the mails of corresponding
 			// years
 			TABLETITLE tbt = getInputForYear();
@@ -39,9 +44,9 @@ public class crawler {
 			MailDownloadController mController = new MailDownloadControllerImp();
 			mController.downloadMails(mailLinkOfYear);
 		} catch (InterruptedException e) {
-			System.err.println("URL Interruptions");
+			logger.error("URL Interruptions", e);
 		} catch (IOException e) {
-			System.err.println("IO ISSUE");
+			logger.error("IO Issue", e);
 		}
 
 	}
@@ -56,6 +61,10 @@ public class crawler {
 		int choice = 0;
 		TABLETITLE year = null;
 		do {
+			// logs a debug message
+			if (logger.isDebugEnabled()) {
+				logger.debug("Accepting User input");
+			}
 			System.out.println("Available Years: ");
 			System.out
 					.println("Please select a cooresponding number for Years.");
@@ -75,7 +84,13 @@ public class crawler {
 				user_input.next();
 			}
 		} while (choice == 0);
+		if (logger.isInfoEnabled()) {
+			logger.info("Year selected is :" + year);
+		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("Year selected is :" + year);
+		}
 		return year;
 	}
 

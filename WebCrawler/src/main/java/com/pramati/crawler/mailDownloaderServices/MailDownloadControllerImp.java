@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 import com.pramati.crawler.mailDownloader.MailDownloadController;
 import com.pramati.crawler.uti.Utility;
 
@@ -25,8 +27,19 @@ public class MailDownloadControllerImp implements MailDownloadController {
 	 *            save the data in local file System
 	 * 
 	 */
+
+	final static Logger logger = Logger
+			.getLogger(MailDownloadControllerImp.class);
+
 	public void downloadMails(Set<String> mailLinkOfYear) throws IOException,
 			InterruptedException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("Dropping  existing mails...");
+		}
+
+		if (logger.isInfoEnabled()) {
+			logger.info("Dropping  existing mails...");
+		}
 		Utility.dropExistingFiles(Utility.FILE_LOC);
 		downloadMain(mailLinkOfYear);
 	}
@@ -50,7 +63,15 @@ public class MailDownloadControllerImp implements MailDownloadController {
 		ExecutorService executor = Executors.newFixedThreadPool(6);
 		String url = null;
 		while (it.hasNext()) {
+
 			url = it.next();
+			if (logger.isDebugEnabled()) {
+				logger.debug("Saving files for URL" +url);
+			}
+
+			if (logger.isInfoEnabled()) {
+				logger.info("Saving files for URL" +url);
+			}
 			executor.execute((new MailDownloadService(url)));
 		}
 		executor.shutdown();
@@ -59,6 +80,13 @@ public class MailDownloadControllerImp implements MailDownloadController {
 
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
-		System.out.println(totalTime);
+		if (logger.isDebugEnabled()) {
+			logger.debug("Time taken in downloading is  :" + totalTime);
+		}
+
+		if (logger.isInfoEnabled()) {
+			logger.info("Saving files for URL  " + totalTime);
+		}
+		// executor.execute((new MailDownloadService(url)));
 	}
 }

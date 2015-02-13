@@ -2,10 +2,10 @@ package com.pramati.crawler.mailDownloaderServices;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,7 +20,7 @@ import com.pramati.crawler.mailDownloader.HTMLRequester;
  */
 
 public class HTMLRequestService implements HTMLRequester {
-	Document doc;
+	final static Logger logger = Logger.getLogger(HTMLRequestService.class);
 
 	/**
 	 * Returns a set of URLs on the HTML page given as param
@@ -36,8 +36,8 @@ public class HTMLRequestService implements HTMLRequester {
 	 */
 	public Set<String> htmlURLExtractor(String webURL, String tableID,
 			String text) throws IOException {
+		Document doc;
 		Set<String> linkSetByDate = new HashSet<String>();
-		linkSetByDate = Collections.emptySet();
 		// to make the URL for email.
 		if (webURL.contains("thread") && !webURL.contains("thread?")) {
 			webURL = webURL.replace("thread", "");
@@ -45,6 +45,13 @@ public class HTMLRequestService implements HTMLRequester {
 
 		int statusCode = connectURL(webURL);
 		if (statusCode == 200) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("Connected to URL " + webURL + " successfuly");
+			}
+
+			if (logger.isInfoEnabled()) {
+				logger.info("Connected to URL " + webURL + " successfuly");
+			}
 			doc = Jsoup.connect(webURL).timeout(10 * 1000).get();
 			// for paginated data
 			if (webURL.contains("thread?")) {
@@ -64,8 +71,24 @@ public class HTMLRequestService implements HTMLRequester {
 				}
 			}
 
+		} else {
+			if (logger.isDebugEnabled()) {
+				logger.debug("Not able to Connect to URL " + webURL);
+			}
+
+			if (logger.isInfoEnabled()) {
+				logger.info("Not able to Connect to URL " + webURL);
+			}
+		}
+		if (logger.isDebugEnabled()) {
+			logger.debug("The counts of extracted URLs is  "
+					+ linkSetByDate.size());
 		}
 
+		if (logger.isInfoEnabled()) {
+			logger.info("The counts of extracted URLs is  "
+					+ linkSetByDate.size());
+		}
 		return linkSetByDate;
 	}
 
@@ -101,11 +124,19 @@ public class HTMLRequestService implements HTMLRequester {
 	public String linkParser(String webURL) throws IOException {
 
 		String resultString = "";
+		Document doc;
 
 		int statusCode = connectURL(webURL);
 		if (statusCode == 200) {
 			doc = Jsoup.connect(webURL).timeout(15 * 1000).get();
 			resultString = doc.text();
+			if (logger.isDebugEnabled()) {
+				logger.debug("Data parsing successful for URL :" + webURL);
+			}
+
+			if (logger.isInfoEnabled()) {
+				logger.info("Data parsing successful :" + webURL);
+			}
 
 		}
 

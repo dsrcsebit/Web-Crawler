@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.pramati.crawler.mailDownloader.HTMLRequester;
 import com.pramati.crawler.uti.Utility;
 
@@ -16,7 +18,8 @@ import com.pramati.crawler.uti.Utility;
  */
 public class MailDownloadService implements Runnable {
 
-	String URL;
+	final String URL;
+	final static Logger logger = Logger.getLogger(MailDownloadService.class);
 
 	public MailDownloadService(String uRL) {
 		super();
@@ -74,8 +77,10 @@ public class MailDownloadService implements Runnable {
 		try {
 			saveMailFromURL();
 		} catch (IOException e) {
-			System.err.println("Error in saving files"
+
+			logger.error("Error in saving files"
 					+ Thread.currentThread().getName());
+
 		}
 	}
 
