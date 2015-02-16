@@ -1,6 +1,9 @@
 package com.pramati.crawler.mycrawler;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -32,6 +35,7 @@ public class MailCrawler {
 	final static Logger logger = Logger.getLogger(MailCrawler.class);
 
 	public static void main(String[] args) {
+
 		try {
 
 			// take input from user to download the mails of corresponding
@@ -47,7 +51,10 @@ public class MailCrawler {
 		} catch (InterruptedException e) {
 			logger.error("URL Interruptions", e);
 		} catch (IOException e) {
-			logger.error("IO Issue", e);
+			System.err
+					.println("Please check the network connection and try again!!");
+			logger.error("Please check the network connection and try again!!",
+					e);
 		}
 
 	}
@@ -80,9 +87,13 @@ public class MailCrawler {
 				choice = user_input.nextInt();
 				year = TABLETITLE.values()[choice - 1];
 			} catch (Exception e) {
-				System.out
-						.println("You must choose a valid year. Try numbers.");
-				user_input.next();
+				while (choice > 4 || choice <= 0) {
+					System.out
+							.println("You must choose a valid year. Try numbers in range 1-4.");
+					choice = user_input.nextInt();
+				}
+				year = TABLETITLE.values()[choice - 1];
+
 			}
 		} while (choice == 0);
 		if (logger.isInfoEnabled()) {
@@ -93,6 +104,39 @@ public class MailCrawler {
 			logger.debug("Year selected is :" + year);
 		}
 		return year;
+	}
+
+	public void readPropertiesFile() throws IOException {
+
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			String filename = "config.properties";
+			input = getClass().getClassLoader().getResourceAsStream(filename);
+			if (input == null) {
+				return;
+			}
+
+			prop.load(input);
+
+			Enumeration<?> e = prop.propertyNames();
+			while (e.hasMoreElements()) {
+				String key = (String) e.nextElement();
+				String value = prop.getProperty(key);
+				if (key.equals("baseURL")) {
+					// Utility.URL_TO_CRWL=value;
+				}
+			}
+
+		} finally {
+			if (input != null) {
+
+				input.close();
+			}
+		}
+
 	}
 
 }

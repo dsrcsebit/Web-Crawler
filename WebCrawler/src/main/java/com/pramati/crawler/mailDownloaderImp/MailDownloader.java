@@ -18,12 +18,14 @@ import com.pramati.crawler.uti.Utility;
  */
 public class MailDownloader implements Runnable {
 
-	final String URL;
-	final static Logger logger = Logger.getLogger(MailDownloader.class);
+	private final String url;
+	private final static Logger logger = Logger.getLogger(MailDownloader.class);
+	private HTMLExtractor hreq;
 
-	public MailDownloader(String uRL) {
+	public MailDownloader(String uRL, HTMLExtractor hreq) {
 		super();
-		URL = uRL;
+		url = uRL;
+		this.hreq = hreq;
 	}
 
 	/**
@@ -33,8 +35,8 @@ public class MailDownloader implements Runnable {
 	 * 
 	 */
 	public boolean saveMailFromURL() throws IOException {
-		HTMLExtractor hreq = new HTMLExtractorImp();
-		Set<String> mailURL = hreq.htmlURLExtractor(URL + "?0",
+		// = new HTMLExtractorImp();
+		Set<String> mailURL = hreq.htmlURLExtractor(url + "?0",
 				"table#msglist", "");
 		Set<String> temp = new HashSet<String>();
 		int counter = 1;
@@ -42,7 +44,7 @@ public class MailDownloader implements Runnable {
 
 		while (temp.size() > 1) {
 			temp.clear();
-			temp = hreq.htmlURLExtractor(URL + "?" + counter++,
+			temp = hreq.htmlURLExtractor(url + "?" + counter++,
 					"table#msglist", "");
 
 			if (temp != null && temp.size() > 1) {
@@ -58,9 +60,9 @@ public class MailDownloader implements Runnable {
 						+ "/raw/" + testURL.substring(testURL.indexOf("%"));
 				String fileName = testURL.substring(testURL.indexOf("%"))
 						+ testURL.hashCode();
-
-				Utility.writeToFile(hreq.linkParser(testURL), Utility.FILE_LOC
-						+ fileName + System.currentTimeMillis());
+				if (!Utility.isExist(fileName))
+					Utility.writeToFile(hreq.linkParser(testURL),
+							Utility.FILE_LOC + fileName);
 			}
 		}
 		return true;

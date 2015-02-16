@@ -1,0 +1,77 @@
+2015-02-13 14:36:28 ERROR MailDownloadService:81 - Error in saving filesThread-1
+2015-02-13 14:36:28 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:36:28 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:36:28 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:36:28 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:36:28 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:36:28 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:41:55 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:41:55 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:41:56 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:41:56 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:41:56 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:41:56 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:42:13 ERROR MailDownloadService:81 - Error in saving filesThread-1
+2015-02-13 14:42:13 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:42:13 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:42:13 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:42:13 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:42:14 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:42:14 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:42:42 ERROR MailDownloadService:81 - Error in saving filesThread-0
+2015-02-13 14:42:42 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:42:42 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:42:42 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:42:42 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:42:43 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:42:43 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:43:07 ERROR MailDownloadService:81 - Error in saving filesThread-0
+2015-02-13 14:43:08 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:43:08 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:43:08 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:43:08 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:43:08 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  65
+2015-02-13 14:43:08 INFO  HTMLRequestService:89 - The counts of extracted URLs is  65
+2015-02-13 14:43:09 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:43:09 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:43:37 ERROR MailDownloadService:81 - Error in saving filesThread-1
+2015-02-13 14:43:37 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:43:37 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:43:37 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:43:37 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:43:37 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:43:37 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:44:01 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:44:01 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:44:01 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:44:01 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:44:01 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:44:01 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:44:30 ERROR MailDownloadService:81 - Error in saving filesThread-1
+2015-02-13 14:44:30 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:44:30 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:44:30 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:44:30 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:44:30 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:44:30 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:50:21 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:50:21 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:50:21 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:50:21 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:50:21 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:50:21 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2
+2015-02-13 14:53:07 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:53:07 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?0 successfuly
+2015-02-13 14:53:08 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  65
+2015-02-13 14:53:08 INFO  HTMLRequestService:89 - The counts of extracted URLs is  65
+2015-02-13 14:53:08 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?1 successfuly
+2015-02-13 14:53:08 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/thread?1 successfuly
+2015-02-13 14:53:08 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  0
+2015-02-13 14:53:08 INFO  HTMLRequestService:89 - The counts of extracted URLs is  0
+2015-02-13 14:53:09 DEBUG HTMLRequestService:134 - Data parsing successful for URL :http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/raw/%3cCAAZU44m+dqqSjGdLRMhW+ggyeDuKbyR-PPm6Bh6DbzrFp_S=XA@mail.gmail.com%3e
+2015-02-13 14:53:09 INFO  HTMLRequestService:138 - Data parsing successful :http://mail-archives.apache.org/mod_mbox/maven-users/201502.mbox/raw/%3cCAAZU44m+dqqSjGdLRMhW+ggyeDuKbyR-PPm6Bh6DbzrFp_S=XA@mail.gmail.com%3e
+2015-02-13 14:53:09 ERROR MailDownloadService:81 - Error in saving filesThread-0
+2015-02-13 14:53:46 DEBUG HTMLRequestService:49 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:53:46 INFO  HTMLRequestService:53 - Connected to URL http://mail-archives.apache.org/mod_mbox/maven-users/ successfuly
+2015-02-13 14:53:46 DEBUG HTMLRequestService:84 - The counts of extracted URLs is  2
+2015-02-13 14:53:46 INFO  HTMLRequestService:89 - The counts of extracted URLs is  2

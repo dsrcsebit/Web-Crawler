@@ -4,12 +4,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Enumeration;
-import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+
+import com.pramati.crawler.mailDownloaderImp.HTMLExtractorImp;
+import com.pramati.crawler.mailDownloaderImp.MailDownloader;
 
 public class Utility {
 	/**
@@ -44,6 +44,10 @@ public class Utility {
 	public static final String FILE_LOC = "/home/deepaks/Documents/Mail/";
 
 	public static final String TABLE_ID = "table.year";
+
+	public static boolean isExist(String url) {
+		return new File(FILE_LOC, url).exists();
+	}
 
 	/**
 	 * 
@@ -98,6 +102,25 @@ public class Utility {
 	/**
 	 * 
 	 *
+	 * @param fileLoc
+	 *            drop the file from fileLoc
+	 * 
+	 */
+
+	public static void createFolder(String fileLoc) throws IOException,
+			InterruptedException {
+		/*
+		 * CountDownLatch cdl = new CountDownLatch(1); File file = new
+		 * File(fileLoc); deleteFolder(file, cdl); cdl.await();
+		 */
+		File file = new File(fileLoc);
+		file.mkdir();
+		/* cdl.countDown(); */
+	}
+
+	/**
+	 * 
+	 *
 	 * Helper method to delete directory data
 	 * 
 	 */
@@ -116,36 +139,8 @@ public class Utility {
 		cdl.countDown();
 	}
 
-	public void readPropertiesFile() throws IOException {
-
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-
-			String filename = "config.properties";
-			input = getClass().getClassLoader().getResourceAsStream(filename);
-			if (input == null) {
-				System.out.println("Sorry, unable to find " + filename);
-				return;
-			}
-
-			prop.load(input);
-
-			Enumeration<?> e = prop.propertyNames();
-			while (e.hasMoreElements()) {
-				String key = (String) e.nextElement();
-				String value = prop.getProperty(key);
-				System.out.println("Key : " + key + ", Value : " + value);
-			}
-
-		} finally {
-			if (input != null) {
-
-				input.close();
-			}
-		}
-
+	public static MailDownloader newMailDownloader(String url) {
+		return new MailDownloader(url, new HTMLExtractorImp());
 	}
 
 }

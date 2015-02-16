@@ -40,7 +40,11 @@ public class MailDownloadControllerImp implements MailDownloadController {
 		if (logger.isInfoEnabled()) {
 			logger.info("Dropping  existing mails...");
 		}
-		Utility.dropExistingFiles(Utility.FILE_LOC);
+		// We may download only remaining files--req not clear
+		// Utility.dropExistingFiles(Utility.FILE_LOC);
+		if (!Utility.isExist(Utility.FILE_LOC)) {
+			Utility.createFolder(Utility.FILE_LOC);
+		}
 		downloadMain(mailLinkOfYear);
 	}
 
@@ -66,13 +70,13 @@ public class MailDownloadControllerImp implements MailDownloadController {
 
 			url = it.next();
 			if (logger.isDebugEnabled()) {
-				logger.debug("Saving files for URL" +url);
+				logger.debug("Saving files for URL" + url);
 			}
 
 			if (logger.isInfoEnabled()) {
-				logger.info("Saving files for URL" +url);
+				logger.info("Saving files for URL" + url);
 			}
-			executor.execute((new MailDownloader(url)));
+			executor.execute(Utility.newMailDownloader(url));
 		}
 		executor.shutdown();
 

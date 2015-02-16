@@ -24,4 +24,8 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<finalName>crawler
+	</finalName>
+	</build>
 </project>
