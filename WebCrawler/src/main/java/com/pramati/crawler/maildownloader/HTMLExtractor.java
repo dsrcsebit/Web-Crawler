@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloader;
+package com.pramati.crawler.maildownloader;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,10 +10,10 @@ import java.util.Set;
  */
 public interface HTMLExtractor {
 
-	Set<String> htmlURLExtractor(String webURL, String tableID, String text)
+	Set<String> extractHTMLForurl(String webURL, String tableID, String text)
 			throws IOException;
 
-	String linkParser(String URL) throws IOException;
+	String parseLinkForData(String URL) throws IOException;
 
 	boolean isBrokenLink(URL baseURL);
 

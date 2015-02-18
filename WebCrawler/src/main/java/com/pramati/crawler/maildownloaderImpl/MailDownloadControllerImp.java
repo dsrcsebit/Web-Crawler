@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloaderImp;
+package com.pramati.crawler.maildownloaderImpl;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.pramati.crawler.mailDownloader.MailDownloadController;
-import com.pramati.crawler.uti.Utility;
+import com.pramati.crawler.maildownloader.MailDownloadController;
+import com.pramati.crawler.util.Utility;
 
 /**
  * Provides the method to download the mails
@@ -42,10 +42,12 @@ public class MailDownloadControllerImp implements MailDownloadController {
 		}
 		// We may download only remaining files--req not clear
 		// Utility.dropExistingFiles(Utility.FILE_LOC);
-		if (!Utility.isExist(Utility.FILE_LOC)) {
-			Utility.createFolder(Utility.FILE_LOC);
+
+		Utility util = Utility.getInstance();
+		if (!util.isExist(util.getFileLoc())) {
+			util.createFolder(util.getFileLoc());
 		}
-		downloadMain(mailLinkOfYear);
+		downloadMailurls(mailLinkOfYear);
 	}
 
 	/**
@@ -58,13 +60,15 @@ public class MailDownloadControllerImp implements MailDownloadController {
 	 *            and saving data.
 	 * 
 	 */
-	private void downloadMain(Set<String> mailLinkOfYear) throws IOException,
-			InterruptedException {
+	private void downloadMailurls(Set<String> mailLinkOfYear)
+			throws IOException, InterruptedException {
 		long startTime = System.currentTimeMillis();
 
 		Iterator<String> it = mailLinkOfYear.iterator();
+		int numberOfThreads = Utility.getInstance().getNumberofThreads();
 
-		ExecutorService executor = Executors.newFixedThreadPool(6);
+		ExecutorService executor = Executors
+				.newFixedThreadPool(numberOfThreads);
 		String url = null;
 		while (it.hasNext()) {
 
@@ -80,16 +84,16 @@ public class MailDownloadControllerImp implements MailDownloadController {
 		}
 		executor.shutdown();
 
-		executor.awaitTermination(6, TimeUnit.MINUTES);
+		executor.awaitTermination(numberOfThreads, TimeUnit.MINUTES);
 
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
 		if (logger.isDebugEnabled()) {
-			logger.debug("Time taken in downloading is  :" + totalTime);
+			logger.debug("Time taken in download is  :" + totalTime);
 		}
 
 		if (logger.isInfoEnabled()) {
-			logger.info("Saving files for URL  " + totalTime);
+			logger.info("Saved files for URL  " + totalTime);
 		}
 		// executor.execute((new MailDownloadService(url)));
 	}

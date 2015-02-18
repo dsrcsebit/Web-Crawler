@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloaderImp;
+package com.pramati.crawler.maildownloaderImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.pramati.crawler.mailDownloader.HTMLExtractor;
+import com.pramati.crawler.maildownloader.HTMLExtractor;
 
 /**
  * Service implementation for extacting email URLs from HTML file and parsing
@@ -34,7 +34,7 @@ public class HTMLExtractorImp implements HTMLExtractor {
 	 * @return the set of URL for specified URL input
 	 * 
 	 */
-	public Set<String> htmlURLExtractor(String webURL, String tableID,
+	public Set<String> extractHTMLForurl(String webURL, String tableID,
 			String text) throws IOException {
 		Document doc;
 		Set<String> linkSetByDate = new HashSet<String>();
@@ -43,8 +43,8 @@ public class HTMLExtractorImp implements HTMLExtractor {
 			webURL = webURL.replace("thread", "");
 		}
 
-		int statusCode = connectURL(webURL);
-		if (statusCode == 200) {
+		Connection conn = connectURL(webURL);
+		if (conn.execute().statusCode() == 200) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Connected to URL " + webURL + " successfuly");
 			}
@@ -52,7 +52,7 @@ public class HTMLExtractorImp implements HTMLExtractor {
 			if (logger.isInfoEnabled()) {
 				logger.info("Connected to URL " + webURL + " successfuly");
 			}
-			doc = Jsoup.connect(webURL).timeout(10 * 1000).get();
+			doc = conn.get();
 			// for paginated data
 			if (webURL.contains("thread?")) {
 				webURL = webURL.substring(0, webURL.length() - 8);
@@ -101,15 +101,16 @@ public class HTMLExtractorImp implements HTMLExtractor {
 	 * @return status code
 	 * 
 	 */
-	private int connectURL(String webURL) throws IOException {
-		Connection.Response response = Jsoup
+	private Connection connectURL(String webURL) throws IOException {
+		Connection connection = Jsoup
 				.connect(webURL)
 				.userAgent(
 						"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1042.0 Safari/535.21")
-				.timeout(160000).execute();
+				.timeout(160000);
+		// .execute();
 
-		int statusCode = response.statusCode();
-		return statusCode;
+		// int statusCode = response.statusCode();
+		return connection;
 	}
 
 	/**
@@ -121,14 +122,14 @@ public class HTMLExtractorImp implements HTMLExtractor {
 	 * @return data after parsing the webURL
 	 * 
 	 */
-	public String linkParser(String webURL) throws IOException {
+	public String parseLinkForData(String webURL) throws IOException {
 
 		String resultString = null;
 		Document doc;
 
-		int statusCode = connectURL(webURL);
-		if (statusCode == 200) {
-			doc = Jsoup.connect(webURL).timeout(15 * 1000).get();
+		Connection conn = connectURL(webURL);
+		if (conn.execute().statusCode() == 200) {
+			doc = conn.get();
 			resultString = doc.text();
 			if (logger.isDebugEnabled()) {
 				logger.debug("Data parsing successful for URL :" + webURL);

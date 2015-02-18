@@ -1,20 +1,20 @@
 package com.pramati.crawler.mycrawler;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.pramati.crawler.mailDownloader.HTMLExtractor;
-import com.pramati.crawler.mailDownloader.MailDownloadController;
-import com.pramati.crawler.mailDownloaderImp.HTMLExtractorImp;
-import com.pramati.crawler.mailDownloaderImp.MailDownloadControllerImp;
-import com.pramati.crawler.uti.Utility;
-import com.pramati.crawler.uti.Utility.TABLETITLE;
+import com.pramati.crawler.maildownloader.HTMLExtractor;
+import com.pramati.crawler.maildownloader.MailDownloadController;
+import com.pramati.crawler.maildownloaderImpl.HTMLExtractorImp;
+import com.pramati.crawler.maildownloaderImpl.MailDownloadControllerImp;
+import com.pramati.crawler.util.Utility;
+import com.pramati.crawler.util.Utility.TABLETITLE;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -40,13 +40,31 @@ public class MailCrawler {
 
 			// take input from user to download the mails of corresponding
 			// years
-			TABLETITLE tbt = getInputForYear();
+			String tbt;
+			if (args.length == 0) {
+				tbt = getInputForYear();
+			} else {
+				tbt = args[0];
+			}
+			/*
+			 * Utility util = Utility.getInstance();
+			 * util.readPropertiesFile("config.properties");
+			 */
+			ApplicationContext context = Utility.getAppContext();
+			Utility util = (Utility) context.getBean("utility");
+			util.readPropertiesFile("config.properties");
+			util.setYearString(tbt);
 
-			HTMLExtractor htmlReq = new HTMLExtractorImp();
-			Set<String> mailLinkOfYear = htmlReq.htmlURLExtractor(
-					Utility.URL_TO_CRWL, Utility.TABLE_ID, tbt.toString());
+			HTMLExtractor htmlReq = (HTMLExtractorImp) context
+					.getBean("htmlExtractor");
+			// HTMLExtractor htmlReq = new HTMLExtractorImp();
+			Set<String> mailLinkOfYear = htmlReq.extractHTMLForurl(
+					util.getUrlToCrawl(), util.getTableID(), tbt);
 
-			MailDownloadController mController = new MailDownloadControllerImp();
+			// MailDownloadController mController = new
+			// MailDownloadControllerImp();
+			MailDownloadController mController = (MailDownloadControllerImp) context
+					.getBean("mailDownloadController");
 			mController.downloadMails(mailLinkOfYear);
 		} catch (InterruptedException e) {
 			logger.error("URL Interruptions", e);
@@ -64,8 +82,10 @@ public class MailCrawler {
 	 *
 	 * Helper method to take user input for years
 	 * 
+	 * @throws IOException
+	 * 
 	 */
-	private static TABLETITLE getInputForYear() {
+	private static String getInputForYear() throws IOException {
 		int choice = 0;
 		TABLETITLE year = null;
 		do {
@@ -76,6 +96,7 @@ public class MailCrawler {
 			System.out.println("Available Years: ");
 			System.out
 					.println("Please select a cooresponding number for Years.");
+
 			Scanner user_input = new Scanner(System.in);
 
 			int i = 1;
@@ -87,14 +108,19 @@ public class MailCrawler {
 				choice = user_input.nextInt();
 				year = TABLETITLE.values()[choice - 1];
 			} catch (Exception e) {
-				while (choice > 4 || choice <= 0) {
+				// getInputForYear();
+				while (choice > TABLETITLE.values().length || choice <= 0) {
 					System.out
-							.println("You must choose a valid year. Try numbers in range 1-4.");
+							.println("You must choose a valid year. Try numbers in range 1-"
+									+ TABLETITLE.values().length);
 					choice = user_input.nextInt();
 				}
 				year = TABLETITLE.values()[choice - 1];
 
+			} finally {
+				user_input.close();
 			}
+
 		} while (choice == 0);
 		if (logger.isInfoEnabled()) {
 			logger.info("Year selected is :" + year);
@@ -103,40 +129,7 @@ public class MailCrawler {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Year selected is :" + year);
 		}
-		return year;
-	}
-
-	public void readPropertiesFile() throws IOException {
-
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-
-			String filename = "config.properties";
-			input = getClass().getClassLoader().getResourceAsStream(filename);
-			if (input == null) {
-				return;
-			}
-
-			prop.load(input);
-
-			Enumeration<?> e = prop.propertyNames();
-			while (e.hasMoreElements()) {
-				String key = (String) e.nextElement();
-				String value = prop.getProperty(key);
-				if (key.equals("baseURL")) {
-					// Utility.URL_TO_CRWL=value;
-				}
-			}
-
-		} finally {
-			if (input != null) {
-
-				input.close();
-			}
-		}
-
+		return year.toString();
 	}
 
 }

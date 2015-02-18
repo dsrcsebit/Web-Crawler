@@ -1,4 +1,4 @@
-package com.pramati.crawler.mailDownloader;
+package com.pramati.crawler.maildownloader;
 
 import java.io.IOException;
 import java.util.Set;
