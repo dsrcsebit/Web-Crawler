@@ -1,4 +1,4 @@
-package com.pramati.crawler.maildownloaderImpl;
+package com.pramati.crawler.maildownloaderimpl;
 
 import java.io.IOException;
 import java.util.Iterator;

@@ -5,16 +5,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 
 import com.pramati.crawler.maildownloader.HTMLExtractor;
 import com.pramati.crawler.maildownloader.MailDownloadController;
-import com.pramati.crawler.maildownloaderImpl.HTMLExtractorImp;
-import com.pramati.crawler.maildownloaderImpl.MailDownloadControllerImp;
 import com.pramati.crawler.util.Utility;
 import com.pramati.crawler.util.Utility.TABLETITLE;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -33,6 +29,8 @@ public class MailCrawler {
 	 */
 
 	final static Logger logger = Logger.getLogger(MailCrawler.class);
+	HTMLExtractor htmlReq;
+	MailDownloadController mController;
 
 	public static void main(String[] args) {
 
@@ -55,16 +53,20 @@ public class MailCrawler {
 			util.readPropertiesFile("config.properties");
 			util.setYearString(tbt);
 
-			HTMLExtractor htmlReq = (HTMLExtractorImp) context
-					.getBean("htmlExtractor");
+			/*
+			 * HTMLExtractor htmlReq = (HTMLExtractorImp) context
+			 * .getBean("htmlExtractor");
+			 */
 			// HTMLExtractor htmlReq = new HTMLExtractorImp();
-			Set<String> mailLinkOfYear = htmlReq.extractHTMLForurl(
-					util.getUrlToCrawl(), util.getTableID(), tbt);
+			MailCrawler mailCrawler = (MailCrawler) context
+					.getBean("mainCrawler");
+			Set<String> mailLinkOfYear = mailCrawler.getHtmlReq()
+					.extractHTMLForurl(util.getUrlToCrawl(), util.getTableID(),
+							tbt);
 
 			// MailDownloadController mController = new
 			// MailDownloadControllerImp();
-			MailDownloadController mController = (MailDownloadControllerImp) context
-					.getBean("mailDownloadController");
+			MailDownloadController mController = mailCrawler.getmController();
 			mController.downloadMails(mailLinkOfYear);
 		} catch (InterruptedException e) {
 			logger.error("URL Interruptions", e);
@@ -75,6 +77,22 @@ public class MailCrawler {
 					e);
 		}
 
+	}
+
+	public HTMLExtractor getHtmlReq() {
+		return htmlReq;
+	}
+
+	public void setHtmlReq(HTMLExtractor htmlReq) {
+		this.htmlReq = htmlReq;
+	}
+
+	public MailDownloadController getmController() {
+		return mController;
+	}
+
+	public void setmController(MailDownloadController mController) {
+		this.mController = mController;
 	}
 
 	/**

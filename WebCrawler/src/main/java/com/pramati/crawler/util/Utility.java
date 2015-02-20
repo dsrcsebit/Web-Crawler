@@ -13,8 +13,8 @@ import java.util.concurrent.CountDownLatch;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.pramati.crawler.maildownloaderImpl.HTMLExtractorImp;
-import com.pramati.crawler.maildownloaderImpl.MailDownloader;
+import com.pramati.crawler.maildownloaderimpl.HTMLExtractorImp;
+import com.pramati.crawler.maildownloaderimpl.MailDownloader;
 
 public class Utility {
 
@@ -245,15 +245,15 @@ public class Utility {
 					.getProperty(
 							"testURLforParseData",
 							"http://mail-archives.apache.org/mod_mbox/maven-users/201501.mbox/raw/%3cCAAkqXprgZDMh_AqBDOZx3ppd-=Ya37oJSqZN9LP+cpZKnPm40Q@mail.gmail.com%3e"));
-			setFileLoc(prop.getProperty("FILE_LOC",
+			setFileLoc(prop.getProperty("file.loc",
 					"/home/deepaks/Documents/Mail/"));
 			setConnectionTimeout(Long.parseLong(prop.getProperty(
 					"connectionTimeout", "160000")));
 			setNumberofThreads(Integer.parseInt(prop.getProperty(
 					"numberofThreads", "6")));
-			setUrlToCrawl(prop.getProperty("URL_TO_CRWL",
+			setUrlToCrawl(prop.getProperty("url.crawl",
 					"http://mail-archives.apache.org/mod_mbox/maven-users/"));
-			setTableID(prop.getProperty("TABLEID", "table.year"));
+			setTableID(prop.getProperty("table.id", "table.year"));
 
 		} finally {
 			if (input != null) {
