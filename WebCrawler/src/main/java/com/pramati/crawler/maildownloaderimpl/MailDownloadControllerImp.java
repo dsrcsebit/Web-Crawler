@@ -44,10 +44,12 @@ public class MailDownloadControllerImp implements MailDownloadController {
 		// Utility.dropExistingFiles(Utility.FILE_LOC);
 
 		Utility util = Utility.getInstance();
-		if (!util.isExist(util.getFileLoc())) {
+		if (!util.isExist(util.getFileLoc())
+				/*|| util.createFolder(util.getFileLoc())*/) {
 			util.createFolder(util.getFileLoc());
+			//downloadMailurls(mailLinkOfYear);
 		}
-		downloadMailurls(mailLinkOfYear);
+		 downloadMailurls(mailLinkOfYear);
 	}
 
 	/**

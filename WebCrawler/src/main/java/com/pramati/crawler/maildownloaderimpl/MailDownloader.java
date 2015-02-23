@@ -41,8 +41,8 @@ public class MailDownloader implements Runnable {
 		Set<String> temp = new HashSet<String>();
 		int counter = 1;
 		temp.addAll(mailURL);
-
-		while (temp.size() > 1) {
+		// if (temp != null) {
+		while (temp != null && temp.size() > 1) {
 			temp.clear();
 			temp = hreq.extractHTMLForurl(url + "?" + counter++,
 					"table#msglist", "");
@@ -51,6 +51,7 @@ public class MailDownloader implements Runnable {
 				mailURL.addAll(temp);
 			}
 		}
+		// }
 		Iterator<String> it = mailURL.iterator();
 		Utility util = Utility.getInstance();
 		while (it.hasNext()) {

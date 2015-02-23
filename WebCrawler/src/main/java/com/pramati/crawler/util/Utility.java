@@ -145,7 +145,7 @@ public class Utility {
 			File file;
 			file = new File(fileName);
 			FileOutputStream is = new FileOutputStream(file);
-			OutputStreamWriter osw = new OutputStreamWriter(is);
+			OutputStreamWriter osw = new OutputStreamWriter(is, "UTF-8");
 			w = new BufferedWriter(osw);
 			w.write(textToWrite);
 
@@ -158,6 +158,22 @@ public class Utility {
 
 	}
 
+	/*	*//**
+	 * 
+	 *
+	 * @param fileLoc
+	 *            drop the file from fileLoc
+	 * 
+	 */
+	/*
+	 * 
+	 * public void dropExistingFiles(String fileLoc) throws IOException,
+	 * InterruptedException { CountDownLatch cdl = new CountDownLatch(1); File
+	 * file = new File(fileLoc); deleteFolder(file, cdl); cdl.await();
+	 * 
+	 * file.mkdir(); cdl.countDown(); }
+	 */
+
 	/**
 	 * 
 	 *
@@ -166,33 +182,14 @@ public class Utility {
 	 * 
 	 */
 
-	public void dropExistingFiles(String fileLoc) throws IOException,
-			InterruptedException {
-		CountDownLatch cdl = new CountDownLatch(1);
-		File file = new File(fileLoc);
-		deleteFolder(file, cdl);
-		cdl.await();
-
-		file.mkdir();
-		cdl.countDown();
-	}
-
-	/**
-	 * 
-	 *
-	 * @param fileLoc
-	 *            drop the file from fileLoc
-	 * 
-	 */
-
-	public void createFolder(String fileLoc) throws IOException,
+	public boolean createFolder(String fileLoc) throws IOException,
 			InterruptedException {
 		/*
 		 * CountDownLatch cdl = new CountDownLatch(1); File file = new
 		 * File(fileLoc); deleteFolder(file, cdl); cdl.await();
 		 */
 		File file = new File(fileLoc);
-		file.mkdir();
+		return file.mkdir();
 		/* cdl.countDown(); */
 	}
 
@@ -206,20 +203,12 @@ public class Utility {
 	 * Helper method to delete directory data
 	 * 
 	 */
-	private void deleteFolder(File folder, CountDownLatch cdl) {
-		File[] files = folder.listFiles();
-		if (files != null) { // some JVMs return null for empty dirs
-			for (File f : files) {
-				if (f.isDirectory()) {
-					deleteFolder(f, cdl);
-				} else {
-					f.delete();
-				}
-			}
-		}
-		folder.delete();
-		cdl.countDown();
-	}
+	/*
+	 * private void deleteFolder(File folder, CountDownLatch cdl) { File[] files
+	 * = folder.listFiles(); if (files != null) { // some JVMs return null for
+	 * empty dirs for (File f : files) { if (f.isDirectory()) { deleteFolder(f,
+	 * cdl); } else { f.delete(); } } } folder.delete(); cdl.countDown(); }
+	 */
 
 	public static MailDownloader newMailDownloader(String url) {
 		return new MailDownloader(url, new HTMLExtractorImp());

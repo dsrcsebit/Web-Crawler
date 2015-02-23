@@ -1,6 +1,7 @@
 package com.pramati.crawler.mycrawler;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -39,33 +40,23 @@ public class MailCrawler {
 			// take input from user to download the mails of corresponding
 			// years
 			String tbt;
-			if (args.length == 0) {
+			if (args == null || args.length == 0) {
 				tbt = getInputForYear();
 			} else {
 				tbt = args[0];
 			}
-			/*
-			 * Utility util = Utility.getInstance();
-			 * util.readPropertiesFile("config.properties");
-			 */
+
 			ApplicationContext context = Utility.getAppContext();
 			Utility util = (Utility) context.getBean("utility");
 			util.readPropertiesFile("config.properties");
 			util.setYearString(tbt);
 
-			/*
-			 * HTMLExtractor htmlReq = (HTMLExtractorImp) context
-			 * .getBean("htmlExtractor");
-			 */
-			// HTMLExtractor htmlReq = new HTMLExtractorImp();
 			MailCrawler mailCrawler = (MailCrawler) context
 					.getBean("mainCrawler");
 			Set<String> mailLinkOfYear = mailCrawler.getHtmlReq()
 					.extractHTMLForurl(util.getUrlToCrawl(), util.getTableID(),
 							tbt);
 
-			// MailDownloadController mController = new
-			// MailDownloadControllerImp();
 			MailDownloadController mController = mailCrawler.getmController();
 			mController.downloadMails(mailLinkOfYear);
 		} catch (InterruptedException e) {
@@ -115,7 +106,7 @@ public class MailCrawler {
 			System.out
 					.println("Please select a cooresponding number for Years.");
 
-			Scanner user_input = new Scanner(System.in);
+			Scanner user_input = new Scanner(new InputStreamReader(System.in, "UTF-8"));
 
 			int i = 1;
 			for (TABLETITLE value : TABLETITLE.values()) {
