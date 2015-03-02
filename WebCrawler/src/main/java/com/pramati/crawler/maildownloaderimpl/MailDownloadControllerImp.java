@@ -45,11 +45,13 @@ public class MailDownloadControllerImp implements MailDownloadController {
 
 		Utility util = Utility.getInstance();
 		if (!util.isExist(util.getFileLoc())
-				/*|| util.createFolder(util.getFileLoc())*/) {
-			util.createFolder(util.getFileLoc());
-			//downloadMailurls(mailLinkOfYear);
+		/* || util.createFolder(util.getFileLoc()) */) {
+			if (util.createFolder(util.getFileLoc()))
+				// ;
+				downloadMailurls(mailLinkOfYear);
+		} else {
+			downloadMailurls(mailLinkOfYear);
 		}
-		 downloadMailurls(mailLinkOfYear);
 	}
 
 	/**
